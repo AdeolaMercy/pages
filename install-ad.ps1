@@ -31,10 +31,10 @@ if (-not (Get-ADUser -Filter { SamAccountName -eq '$DomainUser' } -ErrorAction S
 "@
 
 # Save post-reboot script
-$PostScript | Out-File -FilePath "C:\\PostDomainSetup.ps1" -Encoding UTF8
+$PostScript | Out-File -FilePath "C:\PostDomainSetup.ps1" -Encoding UTF8
 
 # Register scheduled task to run post-reboot script
-$Action  = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-ExecutionPolicy Bypass -File C:\\PostDomainSetup.ps1"
+$Action  = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-ExecutionPolicy Bypass -File C:\PostDomainSetup.ps1"
 $Trigger = New-ScheduledTaskTrigger -AtStartup
 Register-ScheduledTask -Action $Action -Trigger $Trigger -TaskName "PostDomainSetup" -RunLevel Highest -Force
 
