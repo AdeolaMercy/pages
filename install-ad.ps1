@@ -36,7 +36,7 @@ $scriptBlock = {
             -AccountPassword $SecurePassword `
 	    -Enabled $true `
             -PasswordNeverExpires $true `
-            -Path "CN=Users,DC=corp,DC=local"
+            -Path "CN=Users,DC=test,DC=local"
 
         Write-Output "Domain user $DomainUser created successfully."
     }
