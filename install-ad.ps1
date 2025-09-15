@@ -19,6 +19,12 @@ Install-ADDSForest `
     -InstallDns:$true `
     -Force:$true
 
+# Wait until AD DS service is running
+do {
+    Start-Sleep -Seconds 20
+    $svc = Get-Service NTDS -ErrorAction SilentlyContinue
+} while ($svc.Status -ne 'Running')
+
 # After reboot, create a domain user
 $scriptBlock = {
     param($DomainUser, $DomainUserPassword)
