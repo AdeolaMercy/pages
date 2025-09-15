@@ -40,5 +40,5 @@ $scriptBlock = {
 
         Write-Output "Domain user $DomainUser created successfully."
     }
-}
+
 
