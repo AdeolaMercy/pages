@@ -7,6 +7,7 @@ param(
 
 # Convert plain text password to secure string
 $SecureDSRMPassword = ConvertTo-SecureString $SafeModeAdminPassword -AsPlainText -Force
+$SecureUserPass = ConvertTo-SecureString $DomainUserPassword -AsPlainText -Force
 
 Write-Output "Installing AD DS role..."
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
