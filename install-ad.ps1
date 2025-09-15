@@ -23,27 +23,16 @@ Install-ADDSForest `
 $scriptBlock = {
     param($DomainUser, $DomainUserPassword)
 
-    Import-Module ActiveDirectory
-
     $SecurePassword = ConvertTo-SecureString $DomainUserPassword -AsPlainText -Force
 
-    if (Get-ADUser -Filter { SamAccountName -eq $DomainUser } -ErrorAction SilentlyContinue) {
-        Write-Output "User $DomainUser already exists."
-    } else {
-        New-ADUser `
+		New-ADUser `
             -Name $DomainUser `
             -SamAccountName $DomainUser `
             -AccountPassword $SecurePassword `
-	    -Enabled $true `
+	    	-Enabled $true `
             -PasswordNeverExpires $true `
-            -Path "CN=Users,DC=test,DC=local"
 
         Write-Output "Domain user $DomainUser created successfully."
     }
 }
 
-# Schedule domain user creation after reboot
-$TaskName = "CreateDomainUser"
-$Action   = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command `"& { & $using:scriptBlock -DomainUser '$DomainUser' -DomainUserPassword '$DomainUserPassword' }`""
-$Trigger  = New-ScheduledTaskTrigger -AtStartup -Once
-Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -RunLevel Highest -Force
