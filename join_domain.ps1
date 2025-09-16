@@ -3,7 +3,10 @@ param(
     [string]$DomainUser,
 
     [Parameter(Mandatory=$true)]
-    [string]$DomainUserPassword
+    [string]$DomainUserPassword,
+
+    [Parameter(Mandatory=$false)]
+    [string]$DomainName
 )
 
 # Convert password to SecureString
