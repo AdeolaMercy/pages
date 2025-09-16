@@ -10,5 +10,5 @@ param(
 $SecurePassword = ConvertTo-SecureString $DomainUserPassword -AsPlainText -Force
 $Credential = New-Object System.Management.Automation.PSCredential("test.local\$DomainUser", $SecurePassword)
 
-Write-Output "Joining computer to domain $DomainName ..."
+Write-Output "Joining computer to domain..."
 Add-Computer -DomainName test.local -Credential $Credential -Force -Restart
