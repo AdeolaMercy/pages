@@ -10,7 +10,7 @@ param(
 )
 
 # Convert password to SecureString
-$SecurePassword = ConvertTo-SecureString $DomainPassword -AsPlainText -Force
+$SecurePassword = ConvertTo-SecureString $DomainUserPassword -AsPlainText -Force
 $Credential = New-Object System.Management.Automation.PSCredential("$DomainName\$DomainUser", $SecurePassword)
 
 Write-Output "Joining computer to domain $DomainName ..."
